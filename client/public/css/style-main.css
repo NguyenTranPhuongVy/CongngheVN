@@ -1,0 +1,30 @@
+.cn-table .image{
+    width: 100px;
+    height: 100px;
+    border-radius: 4px;
+}
+
+.cn-table .cp-icon {
+    cursor: pointer;
+}
+
+.cn-table .cp-icon:hover{
+    font-size: 18px;
+}
+
+.cn-table  .f-right{
+    padding-right: 0%;
+}
+
+.dropdown-float {
+    float: right !important;
+}
+
+.cn-filter .dropdown-menu {
+    left: -100% !important; 
+}
+
+.w-100 { 
+    width: 100%;
+}
+

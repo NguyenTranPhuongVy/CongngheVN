@@ -11,7 +11,7 @@ var menu = new Vue({
             {
                 name: "Quản lý sản phẩm",
                 icon: "fab fa-product-hunt",
-                link: "/quanlysanpham",
+                link: "/product",
                 listTreeView: []
             },
             //Dropdown

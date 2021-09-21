@@ -1,0 +1,28 @@
+<label class="badge bg-danger">03 sản phẩm</label>
+<el-row :gutter="20">
+    <el-col :span="6">
+        <el-input placeholder="Nhập Vào Từ Khoá Cần Tìm Kiếm" v-model="search" clearable></el-input>
+    </el-col>
+    <el-col :span="4">
+        <el-select v-model="valueAction" multiple placeholder="Chọn Thao Tác" class="w-100">
+            <el-option v-for="item in listData.optionsAction" :key="item.value" :label="item.label" :value="item.value"></el-option>
+        </el-select>
+    </el-col>
+    <el-col :span="2">
+        <el-button type="primary" round>Xác Nhận</el-button>
+    </el-col>
+    <el-col :span="12">
+        <div class="btn-group dropdown-split-warning dropdown-float cn-filter">
+            <button type="button" class="btn btn-warning"><i class="fas fa-filter"></i></button>
+            <button type="button" class="btn btn-warning dropdown-toggle dropdown-toggle-split waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only"></span>
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item waves-effect waves-light" href="#">Sắp xếp mới nhất</a>
+                <a class="dropdown-item waves-effect waves-light" href="#">Sắp xếp cũ nhất</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item waves-effect waves-light" href="#">Bộ lọc nâng cao</a>
+            </div>
+        </div>
+    </el-col>
+</el-row>

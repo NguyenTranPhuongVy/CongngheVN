@@ -3,6 +3,7 @@ const path = require('path');
 const exphbs = require('express-handlebars');
 //link router
 const routerHome = require('./server/routers/home');
+const routerProduct = require('./server/routers/product');
 
 const app = express();
 const port = 5000;
@@ -14,6 +15,7 @@ app.set('view engine', '.hbs');
 
 //config router
 app.use('', routerHome);
+app.use('', routerProduct);
 
 //config path
 app.set('views', path.join(__dirname, '/client/views/'));

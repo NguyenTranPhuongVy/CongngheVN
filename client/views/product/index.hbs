@@ -1,0 +1,77 @@
+<div id="app">
+    <div class="row">
+        <div class="main-header">
+            <h4>Quản Lý Sản Phẩm</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-12 table-responsive">
+                            <el-button type="success"><i class="fas fa-plus"></i> Thêm Sản Phẩm</el-button>
+                            <el-tabs v-model="activeName" @tab-click="handleClick">
+                                <el-tab-pane :label="item.label" :name="item.name" v-for="item in listData.tabsMain">
+                                    {{> product/filter}}
+                                    <el-table class="cn-table" ref="multipleTable" :data="tableData" style="width: 100%" @selection-change="handleSelectionChange">
+                                            <el-table-column type="selection"
+                                                             width="55">
+                                            </el-table-column>
+                                            <el-table-column type="index"
+                                                             label="STT"
+                                                             width="50">
+                                            </el-table-column>
+                                            <el-table-column property="code"
+                                                             label="Mã"
+                                                             width="70">
+                                            </el-table-column>
+                                            <el-table-column label="Hình ảnh"
+                                                             width="150">
+                                                <template slot-scope="scope">
+                                                    <img :src="scope.row.image" alt="" class="image">
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column property="name"
+                                                             label="Tên sản phẩm">
+                                            </el-table-column>
+                                            <el-table-column property="category"
+                                                             label="Danh mục">
+                                            </el-table-column>
+                                            <el-table-column property="price"
+                                                             label="Giá">
+                                            </el-table-column>
+                                            <el-table-column property="datecreate"
+                                                             label="Ngày tạo">
+                                            </el-table-column>
+                                            <el-table-column property="datemodified"
+                                                             label="Ngày sửa">
+                                            </el-table-column>
+                                            <el-table-column label="Tình trạng">
+                                                <template slot-scope="scope">
+                                                    <el-switch v-model="scope.row.active"></el-switch>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column property="view"
+                                                             label="Lượt xem">
+                                            </el-table-column>
+                                            <el-table-column label="Hoạt động">
+                                                <template slot-scope="scope">
+                                                    <i class="fa fa-eye cp-icon" aria-hidden="true"></i> |
+                                                    <i class="fa fa-edit cp-icon" aria-hidden="true"></i> |
+                                                    <i class="fa fa-bell cp-icon" aria-hidden="true"></i> |
+                                                    <i class="fa fa-comment cp-icon" aria-hidden="true"></i> |
+                                                    <i class="fa fa-trash cp-icon" aria-hidden="true"></i> 
+                                                </template>
+                                            </el-table-column>
+                                    </el-table> 
+                                </el-tab-pane>
+                            </el-tabs>      
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/products/products.js"></script>
