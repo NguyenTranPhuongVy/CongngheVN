@@ -28,3 +28,21 @@
     width: 100%;
 }
 
+.form-label .el-form--label-top .el-form-item__label {
+    padding: 0 0 0px;
+}
+
+.form-label .el-dialog{
+    width: 65%;
+}
+
+.form-label .img-upload {
+    margin-bottom: 2%;
+    width: 315px;
+    height: 223px;
+}
+
+.form-label .img-upload:hover {
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}

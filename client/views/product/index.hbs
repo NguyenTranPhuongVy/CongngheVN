@@ -10,7 +10,7 @@
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-12 table-responsive">
-                            <el-button type="success"><i class="fas fa-plus"></i> Thêm Sản Phẩm</el-button>
+                            <el-button type="success" @click="clickBtnCreate()"><i class="fas fa-plus"></i> Thêm Sản Phẩm</el-button>
                             <el-tabs v-model="activeName" @tab-click="handleClick">
                                 <el-tab-pane :label="item.label" :name="item.name" v-for="item in listData.tabsMain">
                                     {{> product/filter}}
@@ -73,5 +73,6 @@
             </div>
         </div>
     </div>
+    {{> product/createProduct}}
 </div>
 <script src="js/products/products.js"></script>

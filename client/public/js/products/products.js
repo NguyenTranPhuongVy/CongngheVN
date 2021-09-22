@@ -41,6 +41,49 @@ var Main = {
                 },
             ],
 
+            //form
+            productForm: {
+                code: '',
+                name: '',
+                image: '',
+                category: [],
+                describe: '',
+                content: '',
+                price: '',
+                view: '',
+                active: true,
+            },
+
+            //validate
+            productValidate: {
+                name: [
+                    { 
+                        required: true,
+                        message: 'Vui lòng nhập tên sản phẩm', 
+                        trigger: 'change' 
+                    },
+                    { 
+                        max: 200, 
+                        message: 'Vượt quá số ký tự cho phép', 
+                        trigger: 'change' 
+                    }
+                ],
+                code: [
+                    { 
+                        max: 10, 
+                        message: 'Vượt quá số ký tự cho phép', 
+                        trigger: 'change' 
+                    }
+                ],
+                describe: [
+                    { 
+                        max: 500, 
+                        message: 'Vượt quá số ký tự cho phép', 
+                        trigger: 'change' 
+                    }
+                ]
+            },
+
             listData: {
                 // tabs
                 tabsMain: [
@@ -80,19 +123,75 @@ var Main = {
                         label: 'Thùng rác'
                     }
                 ],
+
+                optionsCategory: [
+                    {
+                        value: '1',
+                        label: 'Máy tính'
+                    }, 
+                    {
+                        value: '2',
+                        label: 'Bàn phím'
+                    }, 
+                    {
+                        value: '3',
+                        label: 'Chuột'
+                    }, 
+                    {
+                        value: '4',
+                        label: 'Ổ cứng'
+                    }
+                ],
             },
 
             multipleSelection: [],
             activeName: 'all',
             search: '',
             valueAction: '',
+            valueCategory: '',
+            dialogFormCreateProduct: false,
+            num: 1,
+            labelposition: 'top',
         }
     },
     mounted() {
         
     },
     methods: {
-          
+
+        uploadimage()
+        {
+            const preview = document.getElementById("myImage");
+            const file = document.querySelector('input[type=file]').files[0];
+            const reader = new FileReader();
+
+            reader.addEventListener("load", function () {
+                // convert image file to base64 string
+                preview.src = reader.result;
+            }, false);
+        
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        },
+
+        clickBtnCreate() {
+            let that = this
+            that.dialogFormCreateProduct = true;
+            that.title = "Thêm Sản Phẩm";
+        },
+
+        handleChangeView(value) {
+            console.log(value)
+        },
+
+        handleRemove(file, fileList) {
+            console.log(file, fileList);
+        },
+        handlePreview(file) {
+            console.log(file);
+        }
+
     }
 };
 var Ctor = Vue.extend(Main)
