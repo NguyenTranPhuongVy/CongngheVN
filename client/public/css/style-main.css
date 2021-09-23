@@ -38,11 +38,23 @@
 
 .form-label .img-upload {
     margin-bottom: 2%;
-    width: 315px;
-    height: 223px;
+    width: 100%;
+    height: 250px;
 }
 
 .form-label .img-upload:hover {
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.el-dialog__wrapper {
+    margin-top: -3% !important;
+}
+
+.float-right {
+    float: right;
+}
+
+.width-form .btn-margin {
+    margin: 0 10px;
 }

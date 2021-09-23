@@ -1,0 +1,59 @@
+<el-form :label-position="labelposition" :model="productForm" :rules="productValidate" ref="productForm" label-width="120px" class="demo-ruleForm">
+    <div class="col-lg-4">
+        <el-form-item label="Ảnh sản phẩm">
+            <el-input @change="uploadimage" type="file" v-model="productForm.image" placeholder="Vui lòng chọn ảnh sản phẩm"></el-input>
+        </el-form-item>
+        <center>
+            <img id="myImage" class="img-upload" src="images/img/no-image.gif" alt="" srcset="">
+        </center>
+        <el-form-item label="Slider ảnh"> 
+            <el-upload
+                class="upload-demo"
+                action="https://jsonplaceholder.typicode.com/posts/"
+                :on-preview="handlePreview"
+                :on-remove="handleRemove"
+                :file-list="fileList"
+                list-type="picture">
+                <el-button size="small" type="primary">Vui lòng chọn ảnh</el-button>
+                <div slot="tip" class="el-upload__tip">Ảnh nên là file jpg/png và không vượt quá 500kb</div>
+            </el-upload>
+        </el-form-item>
+    </div>
+    <div class="col-lg-8">
+        <el-form-item label="Mã sản phẩm" prop="code">
+            <el-input v-model="productForm.code" placeholder="Vui lòng nhập mã sản phẩm" maxlength="10" show-word-limit></el-input>
+        </el-form-item>
+        <el-form-item label="Tên sản phẩm" prop="name">
+            <el-input v-model="productForm.name" placeholder="Vui lòng nhập tên sản phẩm" maxlength="200" show-word-limit></el-input>
+        </el-form-item>
+        <el-form-item label="Danh mục">
+            <el-select v-model="productForm.category" multiple placeholder="Chọn danh mục">
+                <el-option
+                v-for="item in listData.optionsCategory"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+                </el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="Giá sản phẩm">
+            <el-input type="number" v-model="productForm.price" maxlength="50" show-word-limit></el-input>
+        </el-form-item>
+        <el-form-item label="Mô tả" prop="describe">
+            <el-input type="textarea" v-model="productForm.describe" maxlength="500" show-word-limit></el-input>
+        </el-form-item>
+        <el-form-item label="Nội dung">
+            <el-input type="textarea" v-model="productForm.content"></el-input>
+        </el-form-item>
+        <el-form-item label="Lượt xem">
+            <el-input-number v-model="productForm.view" @change="handleChangeView" :min="1" :max="10"></el-input-number>
+        </el-form-item>
+        <el-form-item label="Tình trạng">
+            <el-switch v-model="productForm.active"></el-switch>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" @click="createProduct('productForm')">Thêm Sản Phẩm</el-button>
+            <el-button @click="dialogFormCreateProduct = false">Reset</el-button>
+        </el-form-item>
+    </div>
+</el-form>

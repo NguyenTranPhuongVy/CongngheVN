@@ -1,0 +1,38 @@
+<el-form :label-position="labelposition" :model="createAPIForm" :rules="apiValidate" ref="createAPIForm" label-width="120px" class="demo-ruleForm">
+    <div class="col-lg-5">
+        <el-collapse v-model="activeCollapse" @change="handleChange">
+            <el-collapse-item title="Cơ Chế Hoạt Động" name="1">
+                <div>Consistent with real life: in line with the process and logic of real life, and comply with languages and habits that the users are used to;</div>
+                <div>Consistent within interface: all elements should be consistent, such as: design style, icons and texts, position of elements, etc.</div>
+            </el-collapse-item>
+            <el-collapse-item title="Kiểu Dữ Liệu API" name="2">
+                <div>Operation feedback: enable the users to clearly perceive their operations by style updates and interactive effects;</div>
+                <div>Visual feedback: reflect current state by updating or rearranging elements of the page.</div>
+            </el-collapse-item>
+            <el-collapse-item title="Kiểu Trả Về" name="3">
+                <div>Simplify the process: keep operating process simple and intuitive;</div>
+                <div>Definite and clear: enunciate your intentions clearly so that the users can quickly understand and make decisions;</div>
+                <div>Easy to identify: the interface should be straightforward, which helps the users to identify and frees them from memorizing and recalling.</div>
+            </el-collapse-item>
+        </el-collapse>
+    </div>
+    <div class="col-lg-7">
+        <el-form-item label="Đường Dẫn">
+            <el-input v-model="createAPIForm.link"></el-input>
+        </el-form-item>
+        <el-form-item label="Tài Khoản">
+            <el-input v-model="createAPIForm.user"></el-input>
+        </el-form-item>
+        <el-form-item label="Mật Khẩu">
+            <el-input v-model="createAPIForm.password"></el-input>
+        </el-form-item>
+        <el-form-item label="Key API">
+            <el-input v-model="createAPIForm.key"></el-input>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" @click="createAPIProduct('createAPIForm')">Thêm Sản Phẩm</el-button>
+            <el-button @click="resetForm('createAPIForm')">Reset</el-button>
+        </el-form-item>
+        <el-progress :text-inside="true" :stroke-width="22" :percentage="80" status="warning"></el-progress>
+    </div>
+</el-form>

@@ -54,35 +54,47 @@ var Main = {
                 active: true,
             },
 
+            createAPIForm: {
+                link: '',
+                user: '',
+                password: '',
+                key: ''
+            },
+
             //validate
             productValidate: {
                 name: [
                     { 
                         required: true,
                         message: 'Vui lòng nhập tên sản phẩm', 
-                        trigger: 'change' 
+                        trigger: 'blur' 
                     },
                     { 
                         max: 200, 
                         message: 'Vượt quá số ký tự cho phép', 
-                        trigger: 'change' 
+                        trigger: 'blur' 
                     }
                 ],
                 code: [
-                    { 
+                    {
                         max: 10, 
                         message: 'Vượt quá số ký tự cho phép', 
-                        trigger: 'change' 
-                    }
+                        trigger: 'blur' 
+                    },
                 ],
                 describe: [
                     { 
                         max: 500, 
                         message: 'Vượt quá số ký tự cho phép', 
-                        trigger: 'change' 
-                    }
+                        trigger: 'blur' 
+                    },
                 ]
             },
+
+            apiValidate: {
+
+            },
+
 
             listData: {
                 // tabs
@@ -152,6 +164,10 @@ var Main = {
             dialogFormCreateProduct: false,
             num: 1,
             labelposition: 'top',
+            isCreate: false,
+            isCreateAPI: false,
+            loadingForm: false, 
+            activeCollapse: ['1', '2', '3'],
         }
     },
     mounted() {
@@ -159,6 +175,7 @@ var Main = {
     },
     methods: {
 
+        //Hiển Thị Ảnh
         uploadimage()
         {
             const preview = document.getElementById("myImage");
@@ -175,12 +192,7 @@ var Main = {
             }
         },
 
-        clickBtnCreate() {
-            let that = this
-            that.dialogFormCreateProduct = true;
-            that.title = "Thêm Sản Phẩm";
-        },
-
+        //Thao tác chuyển
         handleChangeView(value) {
             console.log(value)
         },
@@ -188,10 +200,78 @@ var Main = {
         handleRemove(file, fileList) {
             console.log(file, fileList);
         },
+
         handlePreview(file) {
             console.log(file);
-        }
+        },
 
+        handleChange(val) {
+            console.log(val);
+        },
+
+        //clean
+        cleanForm() {
+            let that = this;
+            that.isCreate = false;
+            that.isCreateAPI = false;
+            that.textcolor = '';
+            that.bgcolor = '';
+        },
+
+        //Thao tác form
+        clickBtnCreate() {
+            let that = this;
+            this.cleanForm();
+            that.dialogFormCreateProduct = true;
+            that.isCreate = true;
+            that.title = "Thêm Sản Phẩm";
+            that.textcolor = "#fff";
+            that.bgcolor = "#909399";
+            this.setTimeoutLoading();
+        },
+
+        createProduct(productForm) {
+            let that = this;
+            that.$refs[productForm].validate((valid) => {
+                if (valid) {
+                    console.log(this.productForm);
+                } else {
+                    console.log('error submit!!');
+                return false;
+                }
+            });
+        },
+
+        clickBtnCreateAPI() {
+            let that = this;
+            this.cleanForm();
+            that.dialogFormCreateProduct = true;
+            that.isCreateAPI = true;
+            that.title = "Thêm Sản Phẩm Bằng API";
+            this.setTimeoutLoading();
+        },
+
+        createAPIProduct(createAPIForm) {
+            let that = this;
+            that.$refs[createAPIForm].validate((valid) => {
+                if (valid) {
+                    console.log(this.createAPIForm);
+                } else {
+                    console.log('error submit!!');
+                return false;
+                }
+            });
+        },
+
+        //SetTimeOut
+        setTimeoutLoading() {
+            let that = this;
+            that.loadingForm = true;
+
+            setTimeout(function(){
+                that.loadingForm = false;
+            }, 1000);
+        },
     }
 };
 var Ctor = Vue.extend(Main)
