@@ -41,6 +41,7 @@ var Main = {
                 },
             ],
 
+
             //form
             productForm: {
                 code: '',
@@ -154,6 +155,17 @@ var Main = {
                         label: 'Ổ cứng'
                     }
                 ],
+
+                //table
+
+                indexTableAPI: [
+                    {
+                        "userId": 1,
+                        "id": 1,
+                        "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+                        "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+                    },
+                ],
             },
 
             multipleSelection: [],
@@ -167,7 +179,10 @@ var Main = {
             isCreate: false,
             isCreateAPI: false,
             loadingForm: false, 
+            loadingTable: false,
             activeCollapse: ['1', '2', '3'],
+            progress: 0,
+            isProgressCreateAPI: false,
         }
     },
     mounted() {
@@ -216,6 +231,8 @@ var Main = {
             that.isCreateAPI = false;
             that.textcolor = '';
             that.bgcolor = '';
+            that.textAPIcolor = '';
+            that.bgAPIcolor = '';
         },
 
         //Thao tác form
@@ -247,15 +264,38 @@ var Main = {
             this.cleanForm();
             that.dialogFormCreateProduct = true;
             that.isCreateAPI = true;
-            that.title = "Thêm Sản Phẩm Bằng API";
+            that.title = "Thêm Sản Phẩm Bằng API";  
+            that.textAPIcolor = "#fff";
+            that.bgAPIcolor = "#909399";
             this.setTimeoutLoading();
         },
 
         createAPIProduct(createAPIForm) {
             let that = this;
+            that.isProgressCreateAPI = true;
+            that.loadingTable = true;
             that.$refs[createAPIForm].validate((valid) => {
                 if (valid) {
                     console.log(this.createAPIForm);
+                    $.ajax({
+                        url: this.createAPIForm.link,
+                        type: "GET",
+                        dataType: 'json',
+                        async: true,
+                        contentType: 'application/json; charset=UTF-8',
+                        success: function (rs) {
+                            var data = JSON.parse(JSON.stringify(rs))
+
+                            data.forEach((item, index) => {
+                                setTimeout(function(){
+                                    that.progress = index + 1;
+                                    that.listData.indexTableAPI.push(item);
+                                }, 1000);
+                            })
+                            that.loadingTable = false;
+                        },
+                        error: function (xhr, status, err) { }
+                    });
                 } else {
                     console.log('error submit!!');
                 return false;
