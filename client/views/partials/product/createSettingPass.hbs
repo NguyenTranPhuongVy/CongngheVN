@@ -1,0 +1,41 @@
+<el-form :label-position="labelposition" :model="settingPassForm" :rules="settingPassValidate" ref="settingPassForm" label-width="120px" class="demo-ruleForm">
+    <el-form-item label="Chọn Chức Năng">
+        <el-select v-model="settingPassForm.btn" multiple placeholder="Chọn chức năng">
+            <el-option 
+                v-for="item in listData.optionsFunction" 
+                :key="item.value" 
+                :label="item.label" 
+                :value="item.value">
+            </el-option>
+        </el-select>
+    </el-form-item>
+    <el-form-item label="Người Dùng Được Phép Truy Cập">
+        <el-select v-model="settingPassForm.useraccess" multiple placeholder="Chọn người dùng">
+            <el-option 
+                v-for="item in listData.optionsUser" 
+                :key="item.value" 
+                :label="item.label" 
+                :value="item.value">
+            </el-option>
+        </el-select>
+    </el-form-item>
+    <el-form-item label="Người dùng được phép truy cập đổi mật khẩu">
+        <el-select class="w-100" v-model="settingPassForm.usereditpassword" multiple placeholder="Chọn người được phép truy cập">
+            <el-option
+                v-for="item in listData.optionsUser"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+        </el-select>
+    </el-form-item>
+    <el-form-item label="Mật Khẩu" prop="password">
+        <el-input v-model="settingPassForm.password" show-password></el-input>
+    </el-form-item>
+    <el-form-item label="Xác Nhận Mật Khẩu" prop="respassword">
+        <el-input v-model="settingPassForm.respassword" show-password></el-input>
+    </el-form-item>
+    <el-form-item>
+        <el-button type="primary" @click="createSettingPass">Xác Nhận</el-button>
+    </el-form-item>
+</el-form>

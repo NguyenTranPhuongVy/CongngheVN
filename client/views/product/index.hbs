@@ -1,4 +1,4 @@
-<div id="app">
+<div id="app" class="cn-table"> 
     <div class="row">
         <div class="main-header">
             <h4>Quản Lý Sản Phẩm</h4>
@@ -14,7 +14,7 @@
                             <el-tabs v-model="activeName" @tab-click="handleClick">
                                 <el-tab-pane :label="item.label" :name="item.name" v-for="item in listData.tabsMain">
                                     {{> product/filter}}
-                                    <el-table class="cn-table" ref="multipleTable" :data="tableData" style="width: 100%" @selection-change="handleSelectionChange">
+                                    <el-table ref="multipleTable" :data="tableData" style="width: 100%" @selection-change="handleSelectionChange">
                                             <el-table-column type="selection"
                                                              width="55">
                                             </el-table-column>

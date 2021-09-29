@@ -1,0 +1,38 @@
+<el-form :label-position="labelposition" :model="settingForm" :rules="settingValidate" ref="settingForm" label-width="120px" class="demo-ruleForm">
+    <div class="row" :style="'background-color: '+ bg + ';'" >
+        <div class="col-lg-6">
+            <el-tabs v-model="activeSetting" tab-position="left">
+                <el-tab-pane label="Giao Diện" name="display">
+                    <el-form-item label="Giao Diện">
+                        <el-switch
+                            v-model="settingForm.bgcolor"
+                            active-text="Tối"
+                            inactive-text="Sáng"
+                            @change="changeBg('settingForm')">
+                        </el-switch>
+                    </el-form-item>
+                    <el-form-item label="Giao Diện Tuỳ Chỉnh">
+                        <el-checkbox-group v-model="settingForm.bgcolorMain">
+                            <el-checkbox label="Đen"></el-checkbox>
+                            <el-checkbox label="Vàng"></el-checkbox>
+                            <el-checkbox label="Tím"></el-checkbox>
+                        </el-checkbox-group>
+                    </el-form-item>
+                    <el-form-item label="Kiểu Chữ">
+                        <el-select v-model="settingForm.fonts" placeholder="Chọn kiểu phông chữ">
+                            <el-option
+                                v-for="item in listData.optionsFont"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-tab-pane>
+                <el-tab-pane label="Đặt mật khẩu" name="setpass">
+                    {{> product/createSettingPass}}
+                </el-tab-pane>
+            </el-tabs>
+        </div>
+    </div>
+</el-form>

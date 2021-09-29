@@ -62,6 +62,20 @@ var Main = {
                 key: ''
             },
 
+            settingForm: {
+                bgcolor: false,
+                bgcolorMain: '',
+                fonts: ''   
+            },
+
+            settingPassForm: {
+                btn: [],
+                useraccess: [],
+                usereditpassword: [],
+                password: '',
+                respassword: ''
+            },
+
             //validate
             productValidate: {
                 name: [
@@ -96,6 +110,27 @@ var Main = {
 
             },
 
+            settingValidate: {
+
+            },
+
+            settingPassValidate: {
+                password: [
+                    { 
+                        max: 35, 
+                        message: 'Vượt quá số ký tự cho phép', 
+                        trigger: 'blur' 
+                    }
+                ],
+                respassword: [
+                    { 
+                        max: 35, 
+                        message: 'Vượt quá số ký tự cho phép', 
+                        trigger: 'blur' 
+                    }
+                ],
+            },
+
 
             listData: {
                 // tabs
@@ -109,7 +144,7 @@ var Main = {
                         label: 'Theo dõi'
                     }, 
                     {
-                        naem: 'attention',
+                        name: 'attention',
                         label: 'Chú ý'
                     }, 
                     {
@@ -156,6 +191,72 @@ var Main = {
                     }
                 ],
 
+                optionsFunction: [
+                    {
+                        label: 'Thêm sản phẩm',
+                        value: '1',
+                    },
+                    {
+                        label: 'Thêm API',
+                        value: '2',
+                    },
+                    {
+                        label: 'Thêm tải lên',
+                        value: '3',
+                    },
+                    {
+                        label: 'Cài đặt',
+                        value: '4',
+                    },
+                    {
+                        label: 'Cài đặt giao diện',
+                        value: '5',
+                    },
+                    {
+                        label: 'Cài đặt mật khẩu',
+                        value: '6',
+                    }
+                ],
+
+                optionsUser: [
+                    {
+                        value: 'tan.hm',
+                        label: 'tan.hm',
+                    }
+                ],
+
+
+                optionsFont: [
+                    {
+                        value: '1',
+                        label: 'Vn Book Atiqua'
+                    },
+                    {
+                        value: '2',
+                        label: 'Vn Arabia'
+                    },
+                    {
+                        value: '3',
+                        label: 'Vn HelvetIns'
+                    },
+                    {
+                        value: '4',
+                        label: 'Vn Lincoln'
+                    },
+                    {
+                        value: '5',
+                        label: 'Vn Teknical'
+                    },
+                    {
+                        value: '6',
+                        label: 'Vn Tifany'
+                    },
+                    {
+                        value: '7',
+                        label: 'Vn Koala'
+                    }
+                ],
+
                 //table
 
                 indexTableAPI: [
@@ -170,6 +271,7 @@ var Main = {
 
             multipleSelection: [],
             activeName: 'all',
+            activeSetting: 'display',
             search: '',
             valueAction: '',
             valueCategory: '',
@@ -178,6 +280,7 @@ var Main = {
             labelposition: 'top',
             isCreate: false,
             isCreateAPI: false,
+            isSettingForm: false,
             loadingForm: false, 
             loadingTable: false,
             activeCollapse: ['1', '2', '3'],
@@ -207,6 +310,18 @@ var Main = {
             }
         },
 
+        //Đổi màu
+        changeBg(settingForm) {
+            if(this.settingForm.bgcolor)
+            {
+                this.bg = "lightslategray";
+            }
+            else
+            {
+                this.bg = "#FFF";
+            }
+        },
+
         //Thao tác chuyển
         handleChangeView(value) {
             console.log(value)
@@ -229,13 +344,16 @@ var Main = {
             let that = this;
             that.isCreate = false;
             that.isCreateAPI = false;
+            that.isSettingForm = false;
             that.textcolor = '';
             that.bgcolor = '';
             that.textAPIcolor = '';
             that.bgAPIcolor = '';
+            that.textSettingcolor = '';
+            that.bgSettingcolor = '';
         },
 
-        //Thao tác form
+        //Thao tác click form
         clickBtnCreate() {
             let that = this;
             this.cleanForm();
@@ -245,18 +363,6 @@ var Main = {
             that.textcolor = "#fff";
             that.bgcolor = "#909399";
             this.setTimeoutLoading();
-        },
-
-        createProduct(productForm) {
-            let that = this;
-            that.$refs[productForm].validate((valid) => {
-                if (valid) {
-                    console.log(this.productForm);
-                } else {
-                    console.log('error submit!!');
-                return false;
-                }
-            });
         },
 
         clickBtnCreateAPI() {
@@ -270,6 +376,32 @@ var Main = {
             this.setTimeoutLoading();
         },
 
+        clickBtnSettingForm() {
+            let that = this;
+            this.cleanForm();
+            that.dialogFormCreateProduct = true;
+            that.isSettingForm = true;
+            that.title = "Cài Đặt";  
+            that.textSettingcolor = "#fff";
+            that.bgSettingcolor = "#909399";
+            this.setTimeoutLoading();
+        },
+
+
+        //Thao tác form
+        createProduct(productForm) {
+            let that = this;
+            that.$refs[productForm].validate((valid) => {
+                if (valid) {
+                    console.log(this.productForm);
+                } else {
+                    console.log('error submit!!');
+                return false;
+                }
+            });
+        },
+
+
         createAPIProduct(createAPIForm) {
             let that = this;
             that.isProgressCreateAPI = true;
@@ -277,31 +409,54 @@ var Main = {
             that.$refs[createAPIForm].validate((valid) => {
                 if (valid) {
                     console.log(this.createAPIForm);
-                    $.ajax({
-                        url: this.createAPIForm.link,
-                        type: "GET",
-                        dataType: 'json',
-                        async: true,
-                        contentType: 'application/json; charset=UTF-8',
-                        success: function (rs) {
-                            var data = JSON.parse(JSON.stringify(rs))
+                    // $.ajax({
+                    //     url: this.createAPIForm.link,
+                    //     type: "GET",
+                    //     dataType: 'json',
+                    //     async: true,
+                    //     contentType: 'application/json; charset=UTF-8',
+                    //     success: function (rs) {
+                    //         var data = JSON.parse(JSON.stringify(rs))
 
-                            data.forEach((item, index) => {
-                                setTimeout(function(){
-                                    that.progress = index + 1;
-                                    that.listData.indexTableAPI.push(item);
-                                }, 1000);
-                            })
+                    //         data.forEach((item, index) => {
+                    //             setTimeout(function(){
+                    //                 that.progress = index + 1;
+                    //                 that.listData.indexTableAPI.push(item);
+                    //             }, 1000);
+                    //         })
+                    //         that.loadingTable = false;
+                    //     },
+                    //     error: function (xhr, status, err) { }
+                    // });
+                    axios.get(this.createAPIForm.link)
+                    .then(function (response) {
+                            // handle success
+                            console.log(response.data);
+                            setTimeout(function(){
+                                that.listData.indexTableAPI = response.data;
+                                that.progress = that.listData.indexTableAPI.length;
+                            }, 1000);
                             that.loadingTable = false;
-                        },
-                        error: function (xhr, status, err) { }
-                    });
+                        })
+                        .catch(function (error) {
+                            // handle error
+                            console.log(error);
+                        })
+                        .then(function () {
+                            // always executed
+                        });
                 } else {
                     console.log('error submit!!');
                 return false;
                 }
             });
         },
+
+        createSettingPass(settingPassForm) {
+            alert('Xác Nhận Thành Công');
+        },
+
+
 
         //SetTimeOut
         setTimeoutLoading() {
@@ -311,6 +466,11 @@ var Main = {
             setTimeout(function(){
                 that.loadingForm = false;
             }, 1000);
+        },
+
+        //remove
+        removeRowAPI(index, rows) {
+            rows.splice(index, 1);
         },
     }
 };
