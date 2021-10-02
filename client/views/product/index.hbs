@@ -14,7 +14,7 @@
                             <el-tabs v-model="activeName" @tab-click="handleClick">
                                 <el-tab-pane :label="item.label" :name="item.name" v-for="item in listData.tabsMain">
                                     {{> product/filter}}
-                                    <el-table ref="multipleTable" :data="tableData" style="width: 100%" @selection-change="handleSelectionChange">
+                                    <el-table ref="multipleTable" :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()) || data.code.toLowerCase().includes(search.toLowerCase()))" style="width: 100%" @selection-change="handleSelectionChange">
                                             <el-table-column type="selection"
                                                              width="55">
                                             </el-table-column>
@@ -57,11 +57,21 @@
                                             </el-table-column>
                                             <el-table-column label="Hoạt động">
                                                 <template slot-scope="scope">
-                                                    <i class="fa fa-eye cp-icon" aria-hidden="true"></i> |
-                                                    <i class="fa fa-edit cp-icon" aria-hidden="true"></i> |
-                                                    <i class="fa fa-bell cp-icon" aria-hidden="true"></i> |
-                                                    <i class="fa fa-comment cp-icon" aria-hidden="true"></i> |
-                                                    <i class="fa fa-trash cp-icon" aria-hidden="true"></i> 
+                                                    <span @click="clickBtnDetail(scope.row)">
+                                                        <i class="fa fa-eye cp-icon" aria-hidden="true"></i> |
+                                                    </span>                                                 
+                                                    <span @click="clickBtnEdit(scope.row)">
+                                                        <i class="fa fa-edit cp-icon" aria-hidden="true"></i> |
+                                                    </span>                                                  
+                                                    <span>
+                                                        <i class="fa fa-bell cp-icon" aria-hidden="true"></i> |
+                                                    </span>                                                  
+                                                    <span>
+                                                        <i class="fa fa-comment cp-icon" aria-hidden="true"></i> |
+                                                    </span>
+                                                    <span>
+                                                        <i class="fa fa-trash cp-icon" aria-hidden="true"></i> 
+                                                    </span>                                              
                                                 </template>
                                             </el-table-column>
                                     </el-table> 
@@ -73,6 +83,8 @@
             </div>
         </div>
     </div>
-    {{> product/createProduct}}
+    {{> product/dialog/createProduct}}
+    {{> product/dialog/editProduct}}
+    {{> product/dialog/detailProduct}}
 </div>
 <script src="js/products/products.js"></script>

@@ -1,3 +1,7 @@
+* {
+    font-family: Helvetica,sans-serif;
+}
+
 .cn-table .image{
     width: 100px;
     height: 100px;
@@ -40,6 +44,13 @@
     margin-bottom: 2%;
     width: 100%;
     height: 250px;
+    border-radius: 8px;
+}
+
+.form-label .image-detail img {
+    width: 100%;
+    height: 250px;
+    border-radius: 8px;
 }
 
 .form-label .img-upload:hover {
@@ -57,4 +68,22 @@
 
 .width-form .btn-margin {
     margin: 0 10px;
+}
+
+.form-label .label-margin label { 
+    margin: 1px 5px !important;
+}
+
+.form-label h6 {
+    color: #606266;
+    font-weight: bold;
+}
+
+.form-label .history-timeline p {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.form-label .statistical {
+    padding: 2% 0;
 }

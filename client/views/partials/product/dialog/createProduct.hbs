@@ -9,12 +9,12 @@
         </div>
     </div>
     <div v-if="isCreate == true" v-loading="loadingForm">
-        {{> product/createForm}}
+        {{> product/dialog/createForm}}
     </div>
     <div v-if="isCreateAPI == true" v-loading="loadingForm">
-        {{> product/createAPI}}
+        {{> product/dialog/createAPI}}
     </div>
     <div v-if="isSettingForm == true" v-loading="loadingForm">
-        {{> product/settingForm}}
+        {{> product/dialog/settingForm}}
     </div>
 </el-dialog>

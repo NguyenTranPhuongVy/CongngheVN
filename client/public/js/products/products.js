@@ -4,10 +4,10 @@ var Main = {
         return {
             tableData: [
                 {
-                    code: 'BP-1',
-                    name: 'Bàn phím đẹp và chất lượng',
+                    code: 'BPMAU-01',
+                    name: 'Bàn phím màu chất lượng',
                     image: 'https://www.anphatpc.com.vn/media/news/1308_Cyberborad.jpg',
-                    category: 'Dụng cụ máy tính',
+                    category: 'Máy Tính',
                     price: '40.000 vnđ',
                     view: '20',
                     describe: 'Bàn phím cơ Rapoo Gaming V806 LED RGB được thiết kế và sản xuất bởi hãng Rapoo – công ty chuyên về thiết kế, phát triển và sản xuất các thiết bị ngoại vi như chuột, bàn phím, tai nghe chuyên dùng cho gaming đang được các game thủ Việt Nam ưa chuộng trong thời gian gần đây.',
@@ -22,10 +22,10 @@ var Main = {
                     note: false
                 }, 
                 {
-                    code: 'BP-2',
-                    name: 'Bàn phím đẹp và chất lượng',
+                    code: 'BPCO-2',
+                    name: 'Bàn phím cơ và chất lượng',
                     image: 'https://www.anphatpc.com.vn/media/news/1308_Cyberborad.jpg',
-                    category: 'Dụng cụ máy tính',
+                    category: 'Máy Tính',
                     price: '40.000 vnđ',
                     view: '20',
                     describe: 'Bàn phím cơ Rapoo Gaming V806 LED RGB được thiết kế và sản xuất bởi hãng Rapoo – công ty chuyên về thiết kế, phát triển và sản xuất các thiết bị ngoại vi như chuột, bàn phím, tai nghe chuyên dùng cho gaming đang được các game thủ Việt Nam ưa chuộng trong thời gian gần đây.',
@@ -35,14 +35,15 @@ var Main = {
                     usercreate: 'tanhuynh',
                     usermodified: 'tanhuynh',
                     active: false,
-                    bin: false,
-                    follow: false,
-                    note: false
+                    bin: true,
+                    follow: true,
+                    note: true
                 },
             ],
 
 
             //form
+
             productForm: {
                 code: '',
                 name: '',
@@ -267,15 +268,43 @@ var Main = {
                         "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
                     },
                 ],
+
+                //Timeline
+                        
+                timelineHistory: [
+                    {
+                        contents: 'Phương Vy đã thay đổi sản phẩm',
+                        timestamp: '02/10/2021'
+                    }, 
+                    {
+                        contents: 'Phương Vy đã thay đổi sản phẩm',
+                        timestamp: '02/10/2021'
+                    }, 
+                    {
+                        contents: 'Phương Vy đã thay đổi sản phẩm',
+                        timestamp: '02/10/2021'
+                    },
+                    {
+                        contents: 'Phương Vy đã thay đổi sản phẩm',
+                        timestamp: '02/10/2021'
+                    },
+                    {
+                        contents: 'Phương Vy đã thay đổi sản phẩm',
+                        timestamp: '02/10/2021'
+                    }
+                ],
             },
 
             multipleSelection: [],
             activeName: 'all',
             activeSetting: 'display',
+            activeDetail: 'info',
             search: '',
             valueAction: '',
             valueCategory: '',
             dialogFormCreateProduct: false,
+            dialogFormEditProduct: false,
+            dialogFormDetailProduct: false,
             num: 1,
             labelposition: 'top',
             isCreate: false,
@@ -286,6 +315,7 @@ var Main = {
             activeCollapse: ['1', '2', '3'],
             progress: 0,
             isProgressCreateAPI: false,
+            reverseHistory: true,
         }
     },
     mounted() {
@@ -345,12 +375,15 @@ var Main = {
             that.isCreate = false;
             that.isCreateAPI = false;
             that.isSettingForm = false;
+            that.isEditForm = false;
             that.textcolor = '';
             that.bgcolor = '';
             that.textAPIcolor = '';
             that.bgAPIcolor = '';
             that.textSettingcolor = '';
             that.bgSettingcolor = '';
+            that.textEditcolor = '';
+            that.bgEditcolor = '';
         },
 
         //Thao tác click form
@@ -363,6 +396,56 @@ var Main = {
             that.textcolor = "#fff";
             that.bgcolor = "#909399";
             this.setTimeoutLoading();
+        },
+
+        clickBtnEdit(row) {
+            let that = this;
+            this.cleanForm();
+            that.dialogFormEditProduct = true;
+            that.isEditForm = true;
+            that.productForm = JSON.parse(JSON.stringify(row));
+            that.title = "Sửa Sản Phẩm - " + row.name;
+            that.textEditcolor = "#fff";
+            that.bgEditcolor = "#909399";
+            this.setTimeoutLoading();
+        },
+
+        clickBtnDetail(row) {
+            let that = this;
+            that.dialogFormDetailProduct = true;
+            that.productForm = JSON.parse(JSON.stringify(row));
+            that.title = "Chi Tiết Sản Phẩm - " + row.name;
+
+            that.code = row.code;
+            that.name = row.name;
+            that.image = row.image;
+            that.category = row.category;
+            that.price = row.price;
+            that.view = row.view;
+            that.describe = row.describe;
+            that.content = row.content;
+            that.datecreate = row.datecreate;
+            that.datemodified = row.datemodified;
+            that.usercreate = row.usercreate;
+            that.usermodified = row.usermodified;
+            that.active = row.active;
+            that.bin = row.bin;
+            that.follow = row.follow;
+            that.note = row.note;
+            
+            this.setTimeoutLoading();
+
+            that.activeText = row.active ? 'Hoạt Động' : 'Không Hoạt Động';
+            that.activeColor = row.active ? 'success' : 'default';
+
+            that.followText = row.follow ? 'Theo Dõi' : 'Không Có Theo Dõi';
+            that.followColor = row.follow ? 'success' : 'default';
+
+            that.noteText = row.note ? 'Chú Ý' : 'Không Chú Ý';
+            that.noteColor = row.note ? 'warning' : 'default';
+
+            that.binText = row.bin ? 'Yes' : 'No';
+            that.binColor = row.bin ? 'danger' : 'default';
         },
 
         clickBtnCreateAPI() {
