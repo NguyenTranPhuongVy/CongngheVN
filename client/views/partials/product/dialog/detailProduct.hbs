@@ -1,5 +1,5 @@
 <el-dialog :title="title" :visible.sync="dialogFormDetailProduct" class="form-label">
-    <el-tabs v-model="activeDetail" @tab-click="handleClick">
+    <el-tabs v-model="activeDetail" @tab-click="handleClickDetails">
         <el-tab-pane label="Thông Tin Chi Tiết" name="info">
             <div class="row">
                 <div class="col-lg-3">
@@ -34,25 +34,25 @@
                         <div class="col-lg-6">
                             <span> 
                                 Ngày Tạo: 
-                                <label v-text="datecreate" class="badge badge-inverse-default"></label>
+                                <label v-text="dateCreate" class="badge badge-inverse-default"></label>
                             </span>   
                         </div>
                         <div class="col-lg-6">
                             <span>
                                 Ngày Sửa: 
-                                <label v-text="datemodified" class="badge badge-inverse-default"></label>
+                                <label v-text="dateModified" class="badge badge-inverse-default"></label>
                             </span>   
                         </div>
                         <div class="col-lg-6">
                             <span>
                                 Người Tạo: 
-                                <label v-text="usercreate" class="badge badge-inverse-default"></label>
+                                <label v-text="userCreate" class="badge badge-inverse-default"></label>
                             </span>   
                         </div>
                         <div class="col-lg-6">
                             <span>
                                 Người Sửa: 
-                                <label v-text="usermodified" class="badge badge-inverse-default"></label>
+                                <label v-text="userModified" class="badge badge-inverse-default"></label>
                             </span>   
                         </div>
                         <div class="col-lg-6">
@@ -106,7 +106,35 @@
             </div>
         </el-tab-pane>
         <el-tab-pane label="Hình Ảnh" name="img">Hình Ảnh</el-tab-pane>
-        <el-tab-pane label="Lịch Sử" name="history">Lịch Sử</el-tab-pane>
+        <el-tab-pane label="Lịch Sử" name="history">
+            <el-tabs v-model="activeHis" tab-position="left" @tab-click="handleClickHistory">
+                <el-tab-pane :label="item.label" :name="item.name" v-for="item in listData.tabsHistory">
+                <label class="badge bg-default bg-padding" v-text="titlelabel"></label>
+                    <el-table
+                        :data="listData.tableHistory"
+                        stripe
+                        style="width: 100%">
+                        <el-table-column
+                            type="index"
+                            label="STT">
+                        </el-table-column>
+                        <el-table-column
+                            label="Người Thực Hiện"
+                            property="userCreate">
+                        </el-table-column>
+                        <el-table-column
+                            label="Công Việc"
+                            property="content">
+                        </el-table-column>
+                        <el-table-column
+                            label="Địa Chỉ"
+                            property="ip">
+                        </el-table-column>
+                    </el-table>
+                </el-tab-pane>
+            </el-tabs>
+        </el-tab-pane>
+        <el-tab-pane label="Thống Kê" name="statiscal">Thống Kê</el-tab-pane>
         <el-tab-pane label="Cài Đặt" name="setting">Cài Đặt</el-tab-pane>
     </el-tabs>
 </el-dialog>

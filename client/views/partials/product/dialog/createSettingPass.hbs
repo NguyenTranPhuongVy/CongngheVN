@@ -10,7 +10,7 @@
         </el-select>
     </el-form-item>
     <el-form-item label="Người Dùng Được Phép Truy Cập">
-        <el-select v-model="settingPassForm.useraccess" multiple placeholder="Chọn người dùng">
+        <el-select v-model="settingPassForm.userAccess" multiple placeholder="Chọn người dùng">
             <el-option 
                 v-for="item in listData.optionsUser" 
                 :key="item.value" 
@@ -20,7 +20,7 @@
         </el-select>
     </el-form-item>
     <el-form-item label="Người dùng được phép truy cập đổi mật khẩu">
-        <el-select class="w-100" v-model="settingPassForm.usereditpassword" multiple placeholder="Chọn người được phép truy cập">
+        <el-select class="w-100" v-model="settingPassForm.userEditPassword" multiple placeholder="Chọn người được phép truy cập">
             <el-option
                 v-for="item in listData.optionsUser"
                 :key="item.value"
@@ -33,7 +33,7 @@
         <el-input v-model="settingPassForm.password" show-password></el-input>
     </el-form-item>
     <el-form-item label="Xác Nhận Mật Khẩu" prop="respassword">
-        <el-input v-model="settingPassForm.respassword" show-password></el-input>
+        <el-input v-model="settingPassForm.resPassword" show-password></el-input>
     </el-form-item>
     <el-form-item>
         <el-button type="primary" @click="createSettingPass">Xác Nhận</el-button>

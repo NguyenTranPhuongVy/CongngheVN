@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "esbenp.prettier-vscode",
+        "softwaredotcom.swdc-vscode",
+        "streetsidesoftware.code-spell-checker",
+        "naumovs.color-highlight",
+        "bierner.color-info"
+    ]
+}

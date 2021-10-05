@@ -12,10 +12,10 @@ var Main = {
                     view: '20',
                     describe: 'Bàn phím cơ Rapoo Gaming V806 LED RGB được thiết kế và sản xuất bởi hãng Rapoo – công ty chuyên về thiết kế, phát triển và sản xuất các thiết bị ngoại vi như chuột, bàn phím, tai nghe chuyên dùng cho gaming đang được các game thủ Việt Nam ưa chuộng trong thời gian gần đây.',
                     content: 'Công tắc phím cơ Omron quá quen thuộc với các sản phẩm Logitech nay đã song hành cùng Bàn phím cơ Rapoo Gaming V806. Với tuổi thọ một phím lên tới 70 triệu lượt nhấn, rất bền và đáng tin cậy trong trò chơi. Thiết kế không xung đột cho 104 phím trên bàn phím, cho phép bạn nhấn đồng thời bất kỳ số lượng phím nào và đảm bảo rằng mọi lệnh của bạn được đăng ký và thực hiện chính xác và nhanh chóng.',
-                    datecreate: '21/09/2021 lúc 2:26',
-                    datemodified: '21/09/2021 lúc 2:26',
-                    usercreate: 'tanhuynh',
-                    usermodified: 'tanhuynh',
+                    dateCreate: '21/09/2021 lúc 2:26',
+                    dateModified: '21/09/2021 lúc 2:26',
+                    userCreate: 'tanhuynh',
+                    userModified: 'tanhuynh',
                     active: true,
                     bin: false,
                     follow: false,
@@ -30,10 +30,10 @@ var Main = {
                     view: '20',
                     describe: 'Bàn phím cơ Rapoo Gaming V806 LED RGB được thiết kế và sản xuất bởi hãng Rapoo – công ty chuyên về thiết kế, phát triển và sản xuất các thiết bị ngoại vi như chuột, bàn phím, tai nghe chuyên dùng cho gaming đang được các game thủ Việt Nam ưa chuộng trong thời gian gần đây.',
                     content: 'Công tắc phím cơ Omron quá quen thuộc với các sản phẩm Logitech nay đã song hành cùng Bàn phím cơ Rapoo Gaming V806. Với tuổi thọ một phím lên tới 70 triệu lượt nhấn, rất bền và đáng tin cậy trong trò chơi. Thiết kế không xung đột cho 104 phím trên bàn phím, cho phép bạn nhấn đồng thời bất kỳ số lượng phím nào và đảm bảo rằng mọi lệnh của bạn được đăng ký và thực hiện chính xác và nhanh chóng.',
-                    datecreate: '21/09/2021 lúc 2:26',
-                    datemodified: '21/09/2021 lúc 2:26',
-                    usercreate: 'tanhuynh',
-                    usermodified: 'tanhuynh',
+                    dateCreate: '21/09/2021 lúc 2:26',
+                    dateModified: '21/09/2021 lúc 2:26',
+                    userCreate: 'tanhuynh',
+                    userModified: 'tanhuynh',
                     active: false,
                     bin: true,
                     follow: true,
@@ -71,10 +71,17 @@ var Main = {
 
             settingPassForm: {
                 btn: [],
-                useraccess: [],
-                usereditpassword: [],
+                userAccess: [],
+                userEditPassword: [],
                 password: '',
-                respassword: ''
+                resPassword: ''
+            },
+
+            noteForm: {
+                content: '',
+                status: 'Bình Thường',
+                title: '',
+                date: [new Date(2016, 9, 10, 8, 40), new Date(2016, 9, 10, 9, 40)]
             },
 
             //validate
@@ -132,8 +139,65 @@ var Main = {
                 ],
             },
 
+            noteValidate: {
+                title: [
+                    { 
+                        required: true,
+                        message: 'Vui lòng nhập tiêu đề', 
+                        trigger: 'blur' 
+                    }
+                ],
+                content: [
+                    { 
+                        required: true,
+                        message: 'Vui lòng nhập nội dung', 
+                        trigger: 'blur' 
+                    }
+                ],
+            },
+
 
             listData: {
+
+                tableHistory: [
+                    {
+                        userCreate: 'Phương Vy',
+                        content: 'Phương Vy đã thay đổi một sản phẩm',
+                        ip: '178.259.367.1.2',
+                        dateCreate: '10/09/2021'
+                    },
+                    {
+                        userCreate: 'Phương Vy',
+                        content: 'Phương Vy đã thay đổi một sản phẩm',
+                        ip: '178.259.367.1.2',
+                        dateCreate: '10/09/2021'
+                    },
+                    {
+                        userCreate: 'Phương Vy',
+                        content: 'Phương Vy đã thay đổi một sản phẩm',
+                        ip: '178.259.367.1.2',
+                        dateCreate: '10/09/2021'
+                    },
+                    {
+                        userCreate: 'Phương Vy',
+                        content: 'Phương Vy đã thay đổi một sản phẩm',
+                        ip: '178.259.367.1.2',
+                        dateCreate: '10/09/2021'
+                    },
+                    {
+                        userCreate: 'Phương Vy',
+                        content: 'Phương Vy đã thay đổi một sản phẩm',
+                        ip: '178.259.367.1.2',
+                        dateCreate: '10/09/2021'
+                    },
+                    {
+                        userCreate: 'Phương Vy',
+                        content: 'Phương Vy đã thay đổi một sản phẩm',
+                        ip: '178.259.367.1.2',
+                        dateCreate: '10/09/2021'
+                    },
+                ],
+
                 // tabs
                 tabsMain: [
                     {
@@ -151,6 +215,21 @@ var Main = {
                     {
                         name: 'trash',
                         label: 'Thùng rác'
+                    }
+                ],
+
+                tabsHistory: [
+                    {
+                        name: 'allHis',
+                        label: 'Tổng Lịch Sử',
+                    }, 
+                    {
+                        name: 'accessHis',
+                        label: 'Lịch Sử Truy Cập'
+                    }, 
+                    {
+                        name: 'hisChange',
+                        label: 'Lịch Sử Thay Đổi'
                     }
                 ],
                 // option
@@ -258,8 +337,23 @@ var Main = {
                     }
                 ],
 
+                // radio
+                radioStatus: [
+                    {
+                        label: 'Rất Quan Trọng',
+                        name: 'veryimportant'
+                    },
+                    {
+                        label: 'Quan Trọng',
+                        name: 'important'
+                    },
+                    {
+                        label: 'Bình Thường',
+                        name: 'normal'
+                    }
+                ],
+                
                 //table
-
                 indexTableAPI: [
                     {
                         "userId": 1,
@@ -299,17 +393,21 @@ var Main = {
             activeName: 'all',
             activeSetting: 'display',
             activeDetail: 'info',
+            activeHis: 'allHis',
             search: '',
             valueAction: '',
             valueCategory: '',
             dialogFormCreateProduct: false,
             dialogFormEditProduct: false,
             dialogFormDetailProduct: false,
+            dialogFormNoteProduct: false,
             num: 1,
             labelposition: 'top',
             isCreate: false,
             isCreateAPI: false,
             isSettingForm: false,
+            isEditForm: false,
+            isDisplayEdit: false,
             loadingForm: false, 
             loadingTable: false,
             activeCollapse: ['1', '2', '3'],
@@ -376,6 +474,7 @@ var Main = {
             that.isCreateAPI = false;
             that.isSettingForm = false;
             that.isEditForm = false;
+            that.isDisplayEdit = false;
             that.textcolor = '';
             that.bgcolor = '';
             that.textAPIcolor = '';
@@ -384,6 +483,8 @@ var Main = {
             that.bgSettingcolor = '';
             that.textEditcolor = '';
             that.bgEditcolor = '';
+            that.textSettingEditcolor = '';
+            that.bgSettingEditcolor = '';
         },
 
         //Thao tác click form
@@ -410,6 +511,18 @@ var Main = {
             this.setTimeoutLoading();
         },
 
+        clickBtnDisplayEdit () {
+            let that = this;
+            this.cleanForm();
+            that.dialogFormEditProduct = true;
+            that.isDisplayEdit = true;
+            that.productForm = JSON.parse(JSON.stringify(row));
+            that.title = "Cài Đặt Sản Phẩm - " + row.name;
+            that.textSettingEditcolor = "#fff";
+            that.bgSettingEditcolor = "#909399";
+            this.setTimeoutLoading();
+        },
+
         clickBtnDetail(row) {
             let that = this;
             that.dialogFormDetailProduct = true;
@@ -424,10 +537,10 @@ var Main = {
             that.view = row.view;
             that.describe = row.describe;
             that.content = row.content;
-            that.datecreate = row.datecreate;
-            that.datemodified = row.datemodified;
-            that.usercreate = row.usercreate;
-            that.usermodified = row.usermodified;
+            that.dateCreate = row.dateCreate;
+            that.dateModified = row.dateModified;
+            that.userCreate = row.userCreate;
+            that.userModified = row.userModified;
             that.active = row.active;
             that.bin = row.bin;
             that.follow = row.follow;
@@ -470,8 +583,41 @@ var Main = {
             this.setTimeoutLoading();
         },
 
+        clickBtnFollow () {
+            
+        },
+        
+        clickBtnNote (row) {
+            let that = this;
+            that.dialogFormNoteProduct = true;
+            that.title = "Thêm Ghi Chú Sản Phẩm - " + row.name;
+            this.setTimeoutLoading();
+        },
+
+        clickBtnDelete(row) {
+            const that = this;
+            that.$confirm('Bạn Muốn Xoá Sản Phẩm - '+ row.name +' ?', 'Thông Báo', {
+                confirmButtonText: 'Xác Nhận',
+                cancelButtonText: 'Huỷ Bỏ',
+                type: 'warning',
+                center: true
+                }).then(() => {
+                this.$notify({
+                    title: 'Success',
+                    message: 'This is a success message',
+                    type: 'success'
+                });
+                }).catch(() => {
+                this.$notify.error({
+                    title: 'Error',
+                    message: 'This is an error message'
+                });
+            });
+        },
+
 
         //Thao tác form
+
         createProduct(productForm) {
             let that = this;
             that.$refs[productForm].validate((valid) => {
@@ -539,7 +685,60 @@ var Main = {
             alert('Xác Nhận Thành Công');
         },
 
+        createNoteProduct(noteForm) {
+            let that = this;
+            that.$refs[noteForm].validate((valid) => {
+                if (valid) {
+                    console.log(this.noteForm);
+                    this.$notify({
+                        title: 'Thông Báo',
+                        message: 'Thêm Ghi Chú Thành Công',
+                        type: 'success'
+                    });
+                } else {
+                    console.log('error submit!!');
+                    this.$notify.error({
+                        title: 'Thông Báo',
+                        message: 'Chưa Có Ghi Chú Nào Được Thêm'
+                    });
+                return false;
+                }
+            });
+        },
 
+        //handleClick
+        handleClickDetails() {
+            let that = this;
+            that.activeHis = 'allHis';
+            if(that.activeDetail == 'history')
+            {
+                that.titlelabel = "Tổng Lịch Sử";
+            }
+            else
+            {
+                console.log("Lỗi!!!!");
+            }
+        },
+
+        handleClickHistory() {
+            let that = this;
+            if(that.activeHis == 'accessHis')
+            {
+                that.titlelabel = "Lịch Sử Truy Cập";
+            }
+            else if(that.activeHis == 'hisChange')
+            {
+                that.titlelabel = "Lịch Sử Thay Đối";
+            }
+            else if(that.activeHis == 'allHis')
+            {
+                that.titlelabel = "Tổng Lịch Sử";
+            }
+            else
+            {
+                console.log("Lỗi!!!!");
+            }
+        },
 
         //SetTimeOut
         setTimeoutLoading() {
