@@ -1,0 +1,20 @@
+<el-form :label-position="labelposition" :model="settingForm" :rules="settingValidate" ref="settingForm"
+    label-width="120px" class="demo-ruleForm">
+    <el-form-item label="Giao Diện">
+        <el-switch v-model="settingForm.bgcolor" active-text="Tối" inactive-text="Sáng" @change="changeBg('settingForm')">
+        </el-switch>
+    </el-form-item>
+    <el-form-item label="Giao Diện Tuỳ Chỉnh">
+        <el-checkbox-group v-model="settingForm.bgcolorMain">
+            <el-checkbox label="Đen"></el-checkbox>
+            <el-checkbox label="Vàng"></el-checkbox>
+            <el-checkbox label="Tím"></el-checkbox>
+        </el-checkbox-group>
+    </el-form-item>
+    <el-form-item label="Kiểu Chữ">
+        <el-select v-model="settingForm.fonts" placeholder="Chọn kiểu phông chữ">
+            <el-option v-for="item in listData.optionsFont" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+        </el-select>
+    </el-form-item>
+</el-form>

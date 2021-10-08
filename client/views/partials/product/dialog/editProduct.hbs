@@ -1,15 +1,22 @@
-<el-dialog :title="title" :visible.sync="dialogFormEditProduct" class="form-label">
-    <div class="row width-form">
-        <div class="col-lg-12">
-            <el-button class="float-right btn-margin" type="info" size="small" plain round><i class="fas fa-question-circle"></i> Hướng dẫn</el-button>
-            <el-button class="float-right" @click="clickBtnDisplayEdit()" type="info" size="small" :style="'color: '+ textSettingEditcolor + '; background-color: '+ bgSettingEditcolor + ';'"  plain round><i class="fas fa-cog"></i> Cài đặt</el-button>
-            <el-button class="float-right" @click="clickBtnEdit()" type="info" size="small" :style="'color: '+ textEditcolor + '; background-color: '+ bgEditcolor + ';'"  plain round><i class="fas fa-cog"></i> Sửa Sản Phẩm</el-button>
+<el-dialog :title="title" :visible.sync="dialogFormEditProduct" class="form-label" @change="changeBg('settingForm')">
+    <div :style="'background-color: '+ bg + ';'">
+        <div class="row width-form">
+            <div class="col-lg-12">
+                <el-button class="float-right btn-margin" type="info" size="small" plain round><i
+                        class="fas fa-question-circle"></i> Hướng dẫn</el-button>
+                <el-button class="float-right" @click="clickBtnDisplayEdit()" type="info" size="small"
+                    :style="'color: '+ textDisplaycolor + '; background-color: '+ bgDisplaycolor + ';'" plain round><i
+                        class="fas fa-cog"></i> Cài đặt</el-button>
+                <el-button class="float-right" @click="clickBtnEdit(row)" type="info" size="small"
+                    :style="'color: '+ textEditcolor + '; background-color: '+ bgEditcolor + ';'" plain round><i
+                        class="fas fa-cog"></i> Sửa Sản Phẩm</el-button>
+            </div>
         </div>
-    </div>
-    <div v-if="isEditForm == true" v-loading="loadingForm">
-        {{> product/dialog/editForm}}
-    </div>
-    <div v-if="isDisplayEdit ==  true" v-loading="loadingForm">
-        {{> product/dialog/settingForm}}
+        <div v-if="isEditForm == true" v-loading="loadingForm">
+            {{> product/form/editForm}}
+        </div>
+        <div v-if="isDisplayEdit ==  true" v-loading="loadingForm">
+            {{> product/form/settingEditForm}}
+        </div>
     </div>
 </el-dialog>

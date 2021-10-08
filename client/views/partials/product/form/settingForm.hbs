@@ -1,5 +1,5 @@
 <el-form :label-position="labelposition" :model="settingForm" :rules="settingValidate" ref="settingForm" label-width="120px" class="demo-ruleForm">
-    <div class="row" :style="'background-color: '+ bg + ';'" >
+    <div class="row">
         <div class="col-lg-6">
             <el-tabs v-model="activeSetting" tab-position="left">
                 <el-tab-pane label="Giao Diện" name="display">
@@ -30,7 +30,7 @@
                     </el-form-item>
                 </el-tab-pane>
                 <el-tab-pane label="Đặt mật khẩu" name="setpass">
-                    {{> product/dialog/createSettingPass}}
+                    {{> product/form/createSettingPass}}
                 </el-tab-pane>
             </el-tabs>
         </div>

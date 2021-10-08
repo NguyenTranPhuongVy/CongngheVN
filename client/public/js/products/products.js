@@ -2,46 +2,7 @@ Vue.component('w-ckeditor-vue', window['w-ckeditor-vue'])
 var Main = {
     data() {
         return {
-            tableData: [
-                {
-                    code: 'BPMAU-01',
-                    name: 'Bàn phím màu chất lượng',
-                    image: 'https://www.anphatpc.com.vn/media/news/1308_Cyberborad.jpg',
-                    category: 'Máy Tính',
-                    price: '40.000 vnđ',
-                    view: '20',
-                    describe: 'Bàn phím cơ Rapoo Gaming V806 LED RGB được thiết kế và sản xuất bởi hãng Rapoo – công ty chuyên về thiết kế, phát triển và sản xuất các thiết bị ngoại vi như chuột, bàn phím, tai nghe chuyên dùng cho gaming đang được các game thủ Việt Nam ưa chuộng trong thời gian gần đây.',
-                    content: 'Công tắc phím cơ Omron quá quen thuộc với các sản phẩm Logitech nay đã song hành cùng Bàn phím cơ Rapoo Gaming V806. Với tuổi thọ một phím lên tới 70 triệu lượt nhấn, rất bền và đáng tin cậy trong trò chơi. Thiết kế không xung đột cho 104 phím trên bàn phím, cho phép bạn nhấn đồng thời bất kỳ số lượng phím nào và đảm bảo rằng mọi lệnh của bạn được đăng ký và thực hiện chính xác và nhanh chóng.',
-                    dateCreate: '21/09/2021 lúc 2:26',
-                    dateModified: '21/09/2021 lúc 2:26',
-                    userCreate: 'tanhuynh',
-                    userModified: 'tanhuynh',
-                    active: true,
-                    bin: false,
-                    follow: false,
-                    note: false
-                }, 
-                {
-                    code: 'BPCO-2',
-                    name: 'Bàn phím cơ và chất lượng',
-                    image: 'https://www.anphatpc.com.vn/media/news/1308_Cyberborad.jpg',
-                    category: 'Máy Tính',
-                    price: '40.000 vnđ',
-                    view: '20',
-                    describe: 'Bàn phím cơ Rapoo Gaming V806 LED RGB được thiết kế và sản xuất bởi hãng Rapoo – công ty chuyên về thiết kế, phát triển và sản xuất các thiết bị ngoại vi như chuột, bàn phím, tai nghe chuyên dùng cho gaming đang được các game thủ Việt Nam ưa chuộng trong thời gian gần đây.',
-                    content: 'Công tắc phím cơ Omron quá quen thuộc với các sản phẩm Logitech nay đã song hành cùng Bàn phím cơ Rapoo Gaming V806. Với tuổi thọ một phím lên tới 70 triệu lượt nhấn, rất bền và đáng tin cậy trong trò chơi. Thiết kế không xung đột cho 104 phím trên bàn phím, cho phép bạn nhấn đồng thời bất kỳ số lượng phím nào và đảm bảo rằng mọi lệnh của bạn được đăng ký và thực hiện chính xác và nhanh chóng.',
-                    dateCreate: '21/09/2021 lúc 2:26',
-                    dateModified: '21/09/2021 lúc 2:26',
-                    userCreate: 'tanhuynh',
-                    userModified: 'tanhuynh',
-                    active: false,
-                    bin: true,
-                    follow: true,
-                    note: true
-                },
-            ],
-
-
+            tableData: [],
             //form
 
             productForm: {
@@ -52,6 +13,7 @@ var Main = {
                 describe: '',
                 content: '',
                 price: '',
+                percentDiscount: 0,
                 view: '',
                 active: true,
             },
@@ -111,7 +73,33 @@ var Main = {
                         message: 'Vượt quá số ký tự cho phép', 
                         trigger: 'blur' 
                     },
-                ]
+                ],
+                describe: [
+                    { 
+                        max: 500, 
+                        message: 'Vượt quá số ký tự cho phép', 
+                        trigger: 'blur' 
+                    },
+                ],
+                percentDiscount: [
+                    {
+                        pattern: /^[0-9]$|^[1-9][0-9]$|^(100)$/,
+                        message: 'Chỉ nhập số từ 0 - 100',
+                        trigger: 'blur' 
+                    },
+                ],
+                price: [
+                    {
+                        required: true,
+                        message: 'Vui lòng nhập giá sản phẩm', 
+                        trigger: 'blur' 
+                    },
+                    {
+                        pattern: /^[0-9]*$/,
+                        message: 'Không được phép nhập chữ',
+                        trigger: 'blur' 
+                    },
+                ],
             },
 
             apiValidate: {
@@ -408,22 +396,74 @@ var Main = {
             isSettingForm: false,
             isEditForm: false,
             isDisplayEdit: false,
+            isUploadImage: false,
             loadingForm: false, 
             loadingTable: false,
             activeCollapse: ['1', '2', '3'],
             progress: 0,
             isProgressCreateAPI: false,
             reverseHistory: true,
+            bg: '#FFF',
+            title: '',
+            textSettingcolor: '',
+            bgSettingcolor: '',
+            textAPIcolor: '',
+            bgAPIcolor: '',
+            textcolor: '',
+            bgcolor: '',
+            textDisplaycolor: '',
+            bgDisplaycolor: '',
+            textEditcolor: '',
+            bgEditcolor: '',
+            activeColor: '',
+            activeText: '',
+            followColor: '',
+            followText: '',
+            noteColor: '',
+            noteText: '',
+            binColor: '',
+            binText: '',
+            titlelabel: '',
+            code: '',
+            name: '',
+            image: '',
+            category: '',
+            describe: '',
+            content: '',
+            price: '',
+            percentDiscount: '',
+            view: '',
+            active: '',
+            dateCreate: '',
+            dateModified: '',
+            userCreate: '',
+            userModified: '',
         }
     },
     mounted() {
-        
+        this.loadIndexProduct();
     },
     methods: {
 
+        refreshForm() {
+            this.productForm = {
+                code: '',
+                name: '',
+                image: '',
+                category: [],
+                describe: '',
+                content: '',
+                price: '',
+                percentDiscount: 0,
+                view: '',
+                active: true,
+            }
+        },
         //Hiển Thị Ảnh
         uploadimage()
         {
+            let that = this;
+            that.isUploadImage = true;
             const preview = document.getElementById("myImage");
             const file = document.querySelector('input[type=file]').files[0];
             const reader = new FileReader();
@@ -438,6 +478,14 @@ var Main = {
             }
         },
 
+        deleteUploadImage(productForm) {
+            let that = this;
+            const preview = document.getElementById("myImage");
+            preview.src = 'images/img/no-image.gif';
+            that.productForm.image = null;
+            that.isUploadImage = false;
+        },
+
         //Đổi màu
         changeBg(settingForm) {
             if(this.settingForm.bgcolor)
@@ -446,7 +494,7 @@ var Main = {
             }
             else
             {
-                this.bg = "#FFF";
+                this.bg = "";
             }
         },
 
@@ -481,16 +529,24 @@ var Main = {
             that.bgAPIcolor = '';
             that.textSettingcolor = '';
             that.bgSettingcolor = '';
+            that.textDisplaycolor = '';
+            that.bgDisplaycolor = '';
             that.textEditcolor = '';
             that.bgEditcolor = '';
-            that.textSettingEditcolor = '';
-            that.bgSettingEditcolor = '';
         },
 
+        cleanDialog() {
+            let that = this;
+            that.dialogFormCreateProduct = false;
+            that.dialogFormDetailProduct = false;
+            that.dialogFormEditProduct = false;
+            that.dialogFormNoteProduct = false;
+        },
         //Thao tác click form
         clickBtnCreate() {
             let that = this;
             this.cleanForm();
+            this.refreshForm();
             that.dialogFormCreateProduct = true;
             that.isCreate = true;
             that.title = "Thêm Sản Phẩm";
@@ -504,22 +560,21 @@ var Main = {
             this.cleanForm();
             that.dialogFormEditProduct = true;
             that.isEditForm = true;
-            that.productForm = JSON.parse(JSON.stringify(row));
-            that.title = "Sửa Sản Phẩm - " + row.name;
             that.textEditcolor = "#fff";
             that.bgEditcolor = "#909399";
+            that.productForm = JSON.parse(JSON.stringify(row));
+            that.title = "Sửa Sản Phẩm - " + row.name;
             this.setTimeoutLoading();
         },
 
-        clickBtnDisplayEdit () {
+        clickBtnDisplayEdit() {
             let that = this;
             this.cleanForm();
             that.dialogFormEditProduct = true;
             that.isDisplayEdit = true;
-            that.productForm = JSON.parse(JSON.stringify(row));
-            that.title = "Cài Đặt Sản Phẩm - " + row.name;
-            that.textSettingEditcolor = "#fff";
-            that.bgSettingEditcolor = "#909399";
+            that.textDisplaycolor = "#fff";
+            that.bgDisplaycolor = "#909399";
+            that.title = "Cài Đặt Sản Phẩm";
             this.setTimeoutLoading();
         },
 
@@ -614,11 +669,64 @@ var Main = {
                 });
             });
         },
+        // Load Form
+        loadIndexProduct() {
+            let that = this;
+            const link = '/product/index'
+            axios.get(link)
+                .then(function (response) {
+                // handle success
+                console.log(response.data);
+                    that.tableData = response.data;
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+                .then(function () {
+                    // always executed
+                });
+        },
 
 
         //Thao tác form
 
         createProduct(productForm) {
+            let that = this;
+            that.$refs[productForm].validate((valid) => {
+                if (valid) {
+                    const link = '/product/create';
+                    axios.get(link, {
+                        params: JSON.parse(JSON.stringify(that.productForm))
+                    })
+                    .then(function (response) {
+                        // handle success
+                        that.loadIndexProduct();
+                        that.$notify({
+                            title: 'Thông Báo',
+                            message: 'Thêm Sản Phẩm Thành Công!',
+                            type: 'success'
+                        });
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log('error submit!!');
+                    })
+                    .then(function () {
+                        // always executed
+                    }); 
+                } else {
+                    that.$notify.error({
+                        title: 'Thông Báo',
+                        message: 'Lỗi! Không Thể Thêm Sản Phẩm'
+                    });
+                return false;
+                }
+                this.dialogFormCreateProduct = false;
+            });
+        },
+
+        editProduct(productForm) {
             let that = this;
             that.$refs[productForm].validate((valid) => {
                 if (valid) {
@@ -740,6 +848,10 @@ var Main = {
             }
         },
 
+        handleClickMain() {
+            console.log(object);
+        },
+
         //SetTimeOut
         setTimeoutLoading() {
             let that = this;
@@ -753,6 +865,22 @@ var Main = {
         //remove
         removeRowAPI(index, rows) {
             rows.splice(index, 1);
+        },
+
+        resetProductForm(productForm) {
+            let that = this;
+            that.$refs[productForm].resetFields();
+        },
+
+        sumMoney(productForm) {
+            let that = this;
+            const price = (that.productForm.price * ((100 - that.productForm.percentDiscount) / 100));
+            const sumPrice = price.toLocaleString('it-IT',
+                {
+                    style: 'currency',
+                    currency: 'VND'
+                });
+            return sumPrice;
         },
     }
 };

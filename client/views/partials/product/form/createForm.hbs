@@ -6,6 +6,9 @@
             </el-form-item>
             <center>
                 <img id="myImage" class="img-upload" src="images/img/no-image.gif" alt="" srcset="">
+                <el-button @click="deleteUploadImage('productForm.image')" type="danger" size="mini" round v-if="isUploadImage == true">
+                    <i class="fas fa-times-circle"></i> Xoá Hình Ảnh
+                </el-button>
             </center>
             <el-form-item label="Slider ảnh"> 
                 <el-upload
@@ -28,7 +31,7 @@
                 <el-input v-model="productForm.name" placeholder="Vui lòng nhập tên sản phẩm" maxlength="200" show-word-limit></el-input>
             </el-form-item>
             <el-form-item label="Danh mục">
-                <el-select v-model="productForm.category" multiple placeholder="Chọn danh mục">
+                <el-select class="w-100" v-model="productForm.category" multiple placeholder="Chọn danh mục">
                     <el-option
                     v-for="item in listData.optionsCategory"
                     :key="item.value"
@@ -37,9 +40,19 @@
                     </el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="Giá sản phẩm">
-                <el-input v-model="productForm.price" maxlength="50" show-word-limit></el-input>
-            </el-form-item>
+            <div class="row">
+                <div class="col-lg-6">
+                    <el-form-item label="Giá sản phẩm" prop="price">
+                        <el-input v-model="productForm.price" maxlength="50" show-word-limit></el-input>
+                    </el-form-item>
+                    <el-tag type="info">Tổng tiền (Bao gồm phần trăm giảm giá): <span class="text-danger" v-text="sumMoney('productForm')"></span></el-tag>
+                </div>
+                <div class="col-lg-6">
+                    <el-form-item label="Phần Trăm Giảm Giá" prop="percentDiscount">
+                        <el-input v-model="productForm.percentDiscount" maxlength="3" show-word-limit></el-input>
+                    </el-form-item>
+                </div>
+            </div>
             <el-form-item label="Mô tả" prop="describe">
                 <el-input type="textarea" v-model="productForm.describe" maxlength="500" show-word-limit></el-input>
             </el-form-item>
@@ -47,14 +60,14 @@
                 <el-input type="textarea" v-model="productForm.content"></el-input>
             </el-form-item>
             <el-form-item label="Lượt xem">
-                <el-input-number v-model="productForm.view" @change="handleChangeView" :min="1" :max="10"></el-input-number>
+                <el-input-number v-model="productForm.view" @change="handleChangeView" :min="1"></el-input-number>
             </el-form-item>
             <el-form-item label="Tình trạng">
                 <el-switch v-model="productForm.active"></el-switch>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="createProduct('productForm')">Thêm Sản Phẩm</el-button>
-                <el-button @click="dialogFormCreateProduct = false">Reset</el-button>
+                <el-button type="primary" @click="createProduct('productForm')"><i class="fas fa-save"></i> Thêm Sản Phẩm</el-button>
+                <el-button @click="resetProductForm('productForm')"><i class="fas fa-sync"></i> Làm Mới</el-button>
             </el-form-item>
         </div>
     </div>
