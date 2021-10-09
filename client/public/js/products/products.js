@@ -438,6 +438,7 @@ var Main = {
             dateModified: '',
             userCreate: '',
             userModified: '',
+            imageUpload: 'images/img/no-image.gif',
         }
     },
     mounted() {
@@ -460,28 +461,27 @@ var Main = {
             }
         },
         //Hiển Thị Ảnh
-        uploadimage()
+        uploadimage(productForm)
         {
             let that = this;
             that.isUploadImage = true;
-            const preview = document.getElementById("myImage");
             const file = document.querySelector('input[type=file]').files[0];
             const reader = new FileReader();
 
             reader.addEventListener("load", function () {
                 // convert image file to base64 string
-                preview.src = reader.result;
+                that.imageUpload = reader.result;
             }, false);
         
             if (file) {
                 reader.readAsDataURL(file);
             }
+            that.productForm.image = file;
         },
 
         deleteUploadImage(productForm) {
             let that = this;
-            const preview = document.getElementById("myImage");
-            preview.src = 'images/img/no-image.gif';
+            that.imageUpload = 'images/img/no-image.gif';
             that.productForm.image = null;
             that.isUploadImage = false;
         },
@@ -695,8 +695,10 @@ var Main = {
             let that = this;
             that.$refs[productForm].validate((valid) => {
                 if (valid) {
+                    const formData = new FormData();
+                    formData.append('file', that.productForm.image);
                     const link = '/product/create';
-                    axios.get(link, {
+                    axios.post(link, formData , {
                         params: JSON.parse(JSON.stringify(that.productForm))
                     })
                     .then(function (response) {

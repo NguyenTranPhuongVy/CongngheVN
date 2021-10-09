@@ -1,11 +1,11 @@
 <el-form :label-position="labelposition" :model="productForm" :rules="productValidate" ref="productForm" label-width="120px" class="demo-ruleForm">
     <div class="row">
         <div class="col-lg-4">
-            <el-form-item label="Ảnh sản phẩm">
-                <el-input @change="uploadimage" type="file" v-model="productForm.image" placeholder="Vui lòng chọn ảnh sản phẩm"></el-input>
+            <el-form-item label="Ảnh sản phẩm" enctype="multipart/form-data">
+                <el-input @change="uploadimage('productForm')" type="file" v-model="productForm.image" placeholder="Vui lòng chọn ảnh sản phẩm"></el-input>
             </el-form-item>
             <center>
-                <img id="myImage" class="img-upload" src="images/img/no-image.gif" alt="" srcset="">
+                <img class="img-upload" :src="imageUpload" alt="" srcset="">
                 <el-button @click="deleteUploadImage('productForm.image')" type="danger" size="mini" round v-if="isUploadImage == true">
                     <i class="fas fa-times-circle"></i> Xoá Hình Ảnh
                 </el-button>

@@ -29,7 +29,7 @@
                                             <el-table-column label="Hình ảnh"
                                                              width="150">
                                                 <template slot-scope="scope">
-                                                    <img :src="scope.row.image" alt="" class="image">
+                                                    <img :src="'/images/product/' + scope.row.image" alt="" class="image">
                                                 </template>
                                             </el-table-column>
                                             <el-table-column property="name"

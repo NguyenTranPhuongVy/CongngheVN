@@ -14,9 +14,10 @@ class ProductsController {
     }
     // *function
     createProduct = (req, res) => {
-        console.log(req.query);
+        console.log(req.file);
 
         const product = new productModel(req.query);
+        product.image = req.file.filename;
         product.save();
 
         res.json({
